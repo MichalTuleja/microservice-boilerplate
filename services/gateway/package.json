@@ -1,0 +1,16 @@
+{
+  "name": "gateway",
+  "version": "1.0.0",
+  "description": "Gateway for microservice project",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Michal Tuleja",
+  "license": "MIT",
+  "dependencies": {
+    "moleculer": "^0.13.11",
+    "moleculer-web": "^0.8.5",
+    "nats": "^1.3.2"
+  }
+}
