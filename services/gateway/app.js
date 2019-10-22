@@ -13,8 +13,9 @@ let broker = new ServiceBroker({
 broker.createService({
     name: "test",
     actions: {
-        hello() {
-            return "Hello API Gateway!"
+        hello(request) {
+            console.log(request.params);
+            return "Hello from API Gateway!";
         },
         add(ctx) {
             return broker.call(
@@ -32,4 +33,8 @@ broker.createService(ApiService);
 // Start server
 broker.start().then(() => broker.waitForServices("math")).then(() => broker.call("math.add", { a: 5, b: 3 }))
 .then(res => console.log("5 + 3 =", res))
+.catch(err => console.error(`Error occured! ${err.message}`));
+
+broker.waitForServices("pubsub").then(() => broker.call("pubsub.status", {  }))
+.then(res => console.log("status: ", res))
 .catch(err => console.error(`Error occured! ${err.message}`));
