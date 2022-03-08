@@ -2,7 +2,6 @@ let { ServiceBroker } = require("moleculer");
 let ApiService = require("moleculer-web");
 
 let broker = new ServiceBroker({
-    // nodeID: "node-1",
     transporter: "nats://localhost:4222",
     logLevel: "info",
     requestTimeout: 5 * 1000,
@@ -33,8 +32,8 @@ broker.createService(ApiService);
 // Start server
 broker.start().then(() => broker.waitForServices("math")).then(() => broker.call("math.add", { a: 5, b: 3 }))
 .then(res => console.log("5 + 3 =", res))
-.catch(err => console.error(`Error occured! ${err.message}`));
+.catch(err => console.error(`Error occurred! ${err.message}`));
 
 broker.waitForServices("pubsub").then(() => broker.call("pubsub.status", {  }))
 .then(res => console.log("status: ", res))
-.catch(err => console.error(`Error occured! ${err.message}`));
+.catch(err => console.error(`Error occurred! ${err.message}`));
