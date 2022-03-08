@@ -2,7 +2,7 @@ let { ServiceBroker } = require("moleculer");
 let ApiService = require("moleculer-web");
 
 let broker = new ServiceBroker({
-    transporter: "nats://localhost:4222",
+    transporter: process.env.MESSAGE_BROKER || 'nats://localhost:4222',
     logLevel: "info",
     requestTimeout: 5 * 1000,
     logger: console,

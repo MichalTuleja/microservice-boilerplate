@@ -1,0 +1,43 @@
+version: "3"
+
+services:
+  nats:
+    image: nats:alpine
+    networks:
+      - moleculer
+    restart: always
+
+  gateway:
+    build: ./services/gateway
+    depends_on:
+      - nats
+    networks:
+      - moleculer
+    restart: always
+    # ports:
+    #   - 3000:3000
+    environment:
+      - MESSAGE_BROKER=nats://nats:4222
+
+  nodejs-hello:
+    build: ./services/nodejs-hello
+    depends_on:
+      - nats
+    networks:
+      - moleculer
+    restart: always
+    environment:
+      - MESSAGE_BROKER=nats://nats:4222
+
+  nodejs-pubsub:
+    build: ./services/nodejs-pubsub
+    depends_on:
+      - nats
+    networks:
+      - moleculer
+    restart: always
+    environment:
+      - MESSAGE_BROKER=nats://nats:4222
+
+networks:
+  moleculer:
